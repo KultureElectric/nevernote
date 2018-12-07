@@ -1,6 +1,9 @@
 const express = require("express");
-
+const mongoose = require("mongoose");
+require("./models/userModel");
 require("./services/passport");
+
+mongoose.connect("mongodb://localhost/nevernote");
 
 const app = express();
 
