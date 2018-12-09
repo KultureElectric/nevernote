@@ -24,5 +24,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require("./routes/authRoutes")(app);
+require("./routes/noteRoutes")(app);
 
 app.listen(5000, () => console.log("App is running on port 5000"));
