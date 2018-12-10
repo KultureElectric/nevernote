@@ -3,6 +3,11 @@ const mongoose = require("mongoose");
 const Note = mongoose.model("note");
 
 module.exports = app => {
+  app.get("/api/notes", async (req, res) => {
+    const notes = await Note.find({ _user: req.user.id });
+    res.send(notes);
+  });
+
   app.post("/api/notes", async (req, res) => {
     const { key } = req.body.blocks[0];
     const body = JSON.stringify(req.body);
@@ -26,6 +31,12 @@ module.exports = app => {
     }
 
     const notes = await Note.find({ _user: req.user.id });
+
+    // This forEach might be useless -- update: it's officially useless
+    notes.forEach((note, index) => {
+      return (notes[index].body = JSON.parse(notes[index].body));
+    });
+
     res.send(notes);
   });
 };
