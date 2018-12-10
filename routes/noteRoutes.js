@@ -24,6 +24,7 @@ module.exports = app => {
       const newNote = await new Note({
         body,
         lastUpdated: new Date(),
+        dateCreated: new Date(),
         _user: req.user.id,
         noteKey: key
       });
