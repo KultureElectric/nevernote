@@ -40,4 +40,11 @@ module.exports = app => {
 
     res.send(notes);
   });
+
+  app.delete("/api/notes", async (req, res) => {
+    await Note.findByIdAndDelete(req.body._id);
+
+    const notes = await Note.find({ _user: req.user.id });
+    res.send(notes);
+  });
 };
