@@ -10,6 +10,7 @@ module.exports = app => {
 
   app.post("/api/notes", async (req, res) => {
     const { key } = req.body.blocks[0];
+    let title = req.body.blocks[0].text;
     const body = JSON.stringify(req.body);
 
     const existingNote = await Note.findOne({ noteKey: key });
@@ -17,11 +18,12 @@ module.exports = app => {
     if (existingNote) {
       const updatedNote = await Note.findOneAndUpdate(
         { noteKey: key },
-        { body, lastUpdated: new Date() }
+        { title, body, lastUpdated: new Date() }
       );
       await updatedNote.save();
     } else {
       const newNote = await new Note({
+        title,
         body,
         lastUpdated: new Date(),
         dateCreated: new Date(),
