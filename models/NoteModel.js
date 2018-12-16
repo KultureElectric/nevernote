@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const NoteSchema = new Schema({
+  title: String,
   body: String,
   lastUpdated: Date,
   dateCreated: Date,
